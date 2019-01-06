@@ -75,13 +75,17 @@ void InitGPIO(void) {
     ANSELAbits.ANSA5 = 0;
     // Set directions to input
     TRISAbits.TRISA5 = 1;
+    
+    TRISDCLR = 1<<11;
 }
 
 void InitApp(void) {
     // Initialize peripherals
     InitGPIO();
+    OledHostInit();
+    OledDspInit();
     InitTimer2();
-    
+	UART4_init();
     // Set Interrupt Controller for multi-vector mode
     INTCONSET = _INTCON_MVEC_MASK;
     // Globally enable interrupts
